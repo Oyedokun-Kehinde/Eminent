@@ -1,0 +1,1156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eminent - Frontend Developer</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- AOS Animation -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #ffffff;
+            --secondary-color: #000000;
+            --accent-color: #6c757d; /* Gray accent */
+            --bg-color: #000000; /* Dark background */
+            --text-color: #ffffff; /* Light text */
+            --border-color: #333333;
+            --shadow: 0 4px 20px rgba(255, 255, 255, 0.1);
+            --gradient-bg: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+        }
+
+        [data-theme="light"] {
+            --primary-color: #000000;
+            --secondary-color: #ffffff;
+            --accent-color: #6c757d; /* Gray accent */
+            --bg-color: #ffffff; /* Light background */
+            --text-color: #000000; /* Dark text */
+            --border-color: #e9ecef;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            --gradient-bg: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            transition: all 0.3s ease;
+        }
+
+        /* Header Styles */
+        .navbar {
+            background-color: var(--bg-color) !important;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            padding: 1rem 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .navbar-brand {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-color) !important;
+        }
+
+        .navbar-nav .nav-link {
+            color: var(--text-color) !important;
+            font-weight: 500;
+            margin: 0 0.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .navbar-nav .nav-link:hover,
+        .navbar-nav .nav-link.active {
+            color: var(--accent-color) !important;
+        }
+
+        .navbar-nav .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent-color);
+            transition: width 0.3s ease;
+        }
+
+        .navbar-nav .nav-link:hover::after,
+        .navbar-nav .nav-link.active::after {
+            width: 100%;
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            background: none;
+            border: 2px solid var(--text-color);
+            color: var(--text-color);
+            padding: 0.5rem;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .theme-toggle:hover {
+            background-color: var(--text-color);
+            color: var(--bg-color);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            background: var(--gradient-bg);
+            position: relative;
+            overflow: hidden;
+            padding-top: 80px;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 50% 50%, rgba(108, 117, 125, 0.1) 0%, transparent 70%);
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, var(--text-color), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-content .lead {
+            font-size: 1.3rem;
+            color: var(--accent-color);
+            margin-bottom: 2rem;
+        }
+
+        .btn-primary {
+            background-color: var(--text-color);
+            border-color: var(--text-color);
+            color: var(--bg-color);
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--accent-color);
+            border-color: var(--accent-color);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline-primary {
+            border-color: var(--text-color);
+            color: var(--text-color);
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-outline-primary:hover {
+            background-color: var(--text-color);
+            border-color: var(--text-color);
+            color: var(--bg-color);
+            transform: translateY(-2px);
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 5rem 0;
+            position: relative;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: var(--accent-color);
+        }
+
+        /* About Section */
+        #about {
+            background-color: var(--bg-color);
+            margin-top: 0;
+        }
+
+        /* Skills Section */
+        #skills {
+            background: var(--gradient-bg);
+        }
+
+        .skill-item {
+            margin-bottom: 2rem;
+        }
+
+        .skill-name {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .progress {
+            height: 10px;
+            background-color: var(--border-color);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            background: linear-gradient(45deg, var(--text-color), var(--accent-color));
+            transition: width 2s ease-in-out;
+            width: 0%; /* Initial state for animation */
+        }
+
+        /* Education Section */
+        #education {
+            background-color: var(--bg-color);
+        }
+
+        .education-item {
+            background-color: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow);
+        }
+
+        .education-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .education-icon {
+            width: 50px;
+            height: 50px;
+            background-color: var(--text-color);
+            color: var(--bg-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+        }
+
+        /* Counter Section */
+        .counter-section {
+            background: var(--gradient-bg);
+            color: var(--text-color);
+        }
+
+        .counter-item {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .counter-number {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .counter-text {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        /* Services Section */
+        #services {
+            background-color: var(--bg-color);
+        }
+
+        .service-card {
+            background-color: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 15px;
+            padding: 2rem;
+            height: 100%;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow);
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(108, 117, 125, 0.3);
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+        }
+
+        /* Reviews Section */
+        #reviews {
+            background: var(--gradient-bg);
+        }
+
+        .review-card {
+            background-color: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 1rem;
+            box-shadow: var(--shadow);
+        }
+
+        .review-stars {
+            color: #ffc107;
+            margin-bottom: 1rem;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background-color: var(--bg-color);
+        }
+
+        .contact-info {
+            background-color: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background-color: var(--text-color);
+            color: var(--bg-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+        }
+
+        .form-control {
+            background-color: var(--bg-color);
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            border-radius: 10px;
+            padding: 0.8rem;
+        }
+
+        .form-control:focus {
+            background-color: var(--bg-color);
+            border-color: var(--accent-color);
+            color: var(--text-color);
+            box-shadow: 0 0 0 0.2rem rgba(108, 117, 125, 0.25);
+        }
+
+        /* Social Links */
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-link {
+            width: 45px;
+            height: 45px;
+            background-color: var(--text-color);
+            color: var(--bg-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background-color: var(--accent-color);
+            color: var(--bg-color);
+            transform: translateY(-3px);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--bg-color);
+            border-top: 1px solid var(--border-color);
+        }
+
+        /* Scroll to Top Button */
+        .scroll-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background-color: var(--text-color);
+            color: var(--bg-color);
+            border: none;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .scroll-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-to-top:hover {
+            background-color: var(--accent-color);
+            transform: translateY(-3px);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .counter-number {
+                font-size: 2rem;
+            }
+        }
+
+        /* Animation Classes */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .typing-animation {
+            overflow: hidden;
+            border-right: 2px solid var(--text-color);
+            white-space: nowrap;
+            animation: typing 3s steps(30, end), blink 1s infinite;
+        }
+
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        @keyframes blink {
+            0%, 50% { border-color: var(--text-color); }
+            51%, 100% { border-color: transparent; }
+        }
+
+        /* Navbar Toggler for Dark Theme */
+        .navbar-toggler {
+            border: 1px solid var(--text-color);
+        }
+
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.85%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+        }
+
+        [data-theme="light"] .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%280, 0, 0, 0.85%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="#home">Eminent</a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#skills">Skills</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#education">Education</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#services">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#reviews">Reviews</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                </ul>
+                
+                <button class="theme-toggle ms-3" onclick="toggleTheme()">
+                    <i class="fas fa-sun" id="theme-icon"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero text-center">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 mx-auto" data-aos="fade-right">
+                    <div class="hero-content">
+                        <h1>Hi, I'm <span class="typing-animation">Oladapo Emmanuel</span></h1>
+                        <p class="lead">Frontend Developer & UI/UX Enthusiast</p>
+                        <p class="mb-4">Passionate about creating beautiful, responsive websites and exceptional digital experiences.</p>
+                        
+                        <div class="d-flex justify-content-center gap-3 mb-4">
+                            <a href="#contact" class="btn btn-primary">Get In Touch</a>
+                            <a href="#about" class="btn btn-outline-primary">Learn More</a>
+                        </div>
+                        
+                        <div class="social-links justify-content-center">
+                            <a href="https://github.com/eminent" target="_blank" class="social-link">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <a href="https://linkedin.com/in/oladapoemmanuel" target="_blank" class="social-link">
+                                <i class="fab fa-linkedin"></i>
+                            </a>
+                            <a href="https://twitter.com/eminentdev" target="_blank" class="social-link">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a href="https://instagram.com/eminentdev" target="_blank" class="social-link">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6 d-none d-lg-flex justify-content-center" data-aos="fade-left">
+                    <img src="https://via.placeholder.com/500x600/333333/FFFFFF?text=Oladapo+Emmanuel" alt="Oladapo Emmanuel" class="img-fluid rounded-circle shadow-lg">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">About Me</h2>
+            
+            <div class="row align-items-center">
+                <div class="col-lg-6 mb-4 mb-lg-0" data-aos="fade-right">
+                    <img src="https://via.placeholder.com/400x500/333333/FFFFFF?text=About+Oladapo" alt="About Oladapo Emmanuel" class="img-fluid rounded shadow-lg">
+                </div>
+                
+                <div class="col-lg-6" data-aos="fade-left">
+                    <h3>Hello! I'm Oladapo Emmanuel</h3>
+                    <p>I'm a passionate frontend developer with a keen eye for design and user experience. My journey in web development started with curiosity about how websites work, and it has evolved into a deep commitment to creating digital solutions that make a difference.</p>
+                    
+                    <p>As a student at the Federal University of Technology, Akure, I combine academic knowledge with practical skills to build modern, responsive websites. I believe in the power of clean code, intuitive design, and continuous learning.</p>
+                    
+                    <h4>My Mission</h4>
+                    <p>To create web experiences that not only look great but also provide exceptional functionality and user satisfaction. I'm committed to staying current with the latest technologies and best practices in web development.</p>
+                    
+                    <h4>My Values</h4>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i><strong>Quality:</strong> I believe in writing clean, maintainable code</li>
+                        <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i><strong>Innovation:</strong> Always exploring new technologies and techniques</li>
+                        <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i><strong>Collaboration:</strong> Working closely with clients to bring their vision to life</li>
+                        <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i><strong>Growth:</strong> Continuously learning and improving my skills</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="section">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">My Skills</h2>
+            
+            <div class="row">
+                <div class="col-lg-6" data-aos="fade-right">
+                    <h3>Technical Skills</h3>
+                    <p>I have developed proficiency in modern web technologies through continuous learning and hands-on practice. Here's my current skill level:</p>
+                    
+                    <div class="skill-item">
+                        <div class="skill-name">
+                            <span>HTML5</span>
+                            <span>85%</span>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" data-width="85"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-item">
+                        <div class="skill-name">
+                            <span>CSS3</span>
+                            <span>80%</span>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" data-width="80"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-item">
+                        <div class="skill-name">
+                            <span>JavaScript</span>
+                            <span>70%</span>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" data-width="70"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-item">
+                        <div class="skill-name">
+                            <span>Bootstrap</span>
+                            <span>90%</span>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" data-width="90"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6" data-aos="fade-left">
+                    <h3>Core Competencies</h3>
+                    <p>Beyond technical skills, I bring valuable soft skills and methodologies to every project:</p>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-check-circle text-success me-2"></i>
+                                <span>Responsive Design</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-check-circle text-success me-2"></i>
+                                <span>Cross-Browser Compatibility</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-check-circle text-success me-2"></i>
+                                <span>Problem Solving</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-check-circle text-success me-2"></i>
+                                <span>User Experience Design</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-check-circle text-success me-2"></i>
+                                <span>Version Control (Git)</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-check-circle text-success me-2"></i>
+                                <span>Agile Development</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <h4>My Commitment</h4>
+                    <p>I am dedicated to continuous learning and staying updated with the latest web technologies. I believe in writing clean, maintainable code and creating user-centered designs that provide exceptional experiences across all devices.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education" class="section">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Education & Learning</h2>
+            
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <div class="education-item" data-aos="fade-up" data-aos-delay="100">
+                        <div class="d-flex align-items-start">
+                            <div class="education-icon">
+                                <i class="fas fa-graduation-cap"></i>
+                            </div>
+                            <div class="flex-grow-1">
+                                <h5 class="mb-1">Bachelor of Technology - Information Technology</h5>
+                                <p class="mb-2 text-muted">Federal University of Technology, Akure (FUTA)</p>
+                                <small class="text-muted">School of Computing | 2021 - Present</small>
+                                <p class="mt-2">Currently pursuing my degree in Information Technology with focus on web development, software engineering, and database management. Maintaining strong academic performance while building practical skills.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="education-item" data-aos="fade-up" data-aos-delay="200">
+                        <div class="d-flex align-items-start">
+                            <div class="education-icon">
+                                <i class="fas fa-certificate"></i>
+                            </div>
+                            <div class="flex-grow-1">
+                                <h5 class="mb-1">Frontend Web Development Bootcamp</h5>
+                                <p class="mb-2 text-muted">Online Learning Platform</p>
+                                <small class="text-muted">Completed 2023</small>
+                                <p class="mt-2">Comprehensive course covering HTML5, CSS3, JavaScript, and responsive design principles. Gained hands-on experience with modern web development tools and frameworks.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="education-item" data-aos="fade-up" data-aos-delay="300">
+                        <div class="d-flex align-items-start">
+                            <div class="education-icon">
+                                <i class="fas fa-certificate"></i>
+                            </div>
+                            <div class="flex-grow-1">
+                                <h5 class="mb-1">Responsive Web Design Certification</h5>
+                                <p class="mb-2 text-muted">freeCodeCamp</p>
+                                <small class="text-muted">Completed 2023</small>
+                                <p class="mt-2">Specialized training in creating responsive websites using CSS Grid, Flexbox, and media queries. Learned best practices for mobile-first design approach.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="education-item" data-aos="fade-up" data-aos-delay="400">
+                        <div class="d-flex align-items-start">
+                            <div class="education-icon">
+                                <i class="fas fa-certificate"></i>
+                            </div>
+                            <div class="flex-grow-1">
+                                <h5 class="mb-1">JavaScript Fundamentals</h5>
+                                <p class="mb-2 text-muted">Online Course</p>
+                                <small class="text-muted">Completed 2024</small>
+                                <p class="mt-2">In-depth study of JavaScript programming, DOM manipulation, and modern ES6+ features. Built several interactive projects to solidify understanding.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Counter Section -->
+    <section class="counter-section section">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-lg-3 col-md-6 mb-4 mb-lg-0" data-aos="fade-up" data-aos-delay="100">
+                    <div class="counter-item">
+                        <div class="counter-number" data-target="3">0</div>
+                        <p class="counter-text">Projects Completed</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4 mb-lg-0" data-aos="fade-up" data-aos-delay="200">
+                    <div class="counter-item">
+                        <div class="counter-number" data-target="1">0</div>
+                        <p class="counter-text">Happy Client</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4 mb-md-0" data-aos="fade-up" data-aos-delay="300">
+                    <div class="counter-item">
+                        <div class="counter-number" data-target="1">0</div>
+                        <p class="counter-text">Year Experience</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="400">
+                    <div class="counter-item">
+                        <div class="counter-number" data-target="500">0</div>
+                        <p class="counter-text">Cups of Coffee Consumed</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="section">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">My Services</h2>
+            <p class="text-center lead mb-5" data-aos="fade-up" data-aos-delay="100">As a junior frontend developer, I offer foundational web development services focused on creating clean, responsive, and user-friendly interfaces.</p>
+            
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+                <div class="col" data-aos="fade-up" data-aos-delay="200">
+                    <div class="service-card text-center">
+                        <div class="service-icon"><i class="fas fa-mobile-alt"></i></div>
+                        <h4 class="mb-3">Responsive Web Design</h4>
+                        <p>Building websites that look great and function perfectly on all devices, from desktops to smartphones and tablets.</p>
+                    </div>
+                </div>
+                <div class="col" data-aos="fade-up" data-aos-delay="300">
+                    <div class="service-card text-center">
+                        <div class="service-icon"><i class="fas fa-brush"></i></div>
+                        <h4 class="mb-3">Basic UI/UX Implementation</h4>
+                        <p>Translating design mockups into functional and intuitive user interfaces, focusing on user flow and accessibility.</p>
+                    </div>
+                </div>
+                <div class="col" data-aos="fade-up" data-aos-delay="400">
+                    <div class="service-card text-center">
+                        <div class="service-icon"><i class="fas fa-code"></i></div>
+                        <h4 class="mb-3">Frontend Development</h4>
+                        <p>Crafting engaging and dynamic user interfaces using modern HTML, CSS, and JavaScript best practices.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reviews Section -->
+    <section id="reviews" class="section">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">What People Say</h2>
+            
+            <div class="row justify-content-center">
+                <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
+                    <div class="review-card">
+                        <div class="review-stars mb-3">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        </div>
+                        <p class="mb-4">"Eminent is a highly motivated and quick learner. His dedication to understanding web development concepts is truly impressive. I'm excited to see his future contributions!"</p>
+                        <div class="d-flex align-items-center">
+                            <img src="https://via.placeholder.com/60x60/6c757d/FFFFFF?text=P" alt="Prof. Adebayo" class="rounded-circle me-3">
+                            <div>
+                                <h5 class="mb-0">Prof. Adebayo</h5>
+                                <small class="text-muted">Head of Department, FUTA</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
+                    <div class="review-card">
+                        <div class="review-stars mb-3">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <p class="mb-4">"Even as a beginner, Oladapo shows great promise. He's eager to tackle challenges and has a solid grasp of the fundamentals. A pleasure to collaborate with!"</p>
+                        <div class="d-flex align-items-center">
+                            <img src="https://via.placeholder.com/60x60/6c757d/FFFFFF?text=D" alt="Dr. Funke" class="rounded-circle me-3">
+                            <div>
+                                <h5 class="mb-0">Dr. Funke</h5>
+                                <small class="text-muted">Online Course Instructor</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section section">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Get in Touch</h2>
+            
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="row g-4">
+                        <div class="col-md-6" data-aos="fade-right">
+                            <div class="contact-info h-100">
+                                <h4 class="mb-4">Contact Details</h4>
+                                <div class="contact-item">
+                                    <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+                                    <div>
+                                        <p class="mb-0">Akure, Ondo State, Nigeria</p>
+                                    </div>
+                                </div>
+                                <div class="contact-item">
+                                    <div class="contact-icon"><i class="fas fa-phone"></i></div>
+                                    <div>
+                                        <p class="mb-0">+234 801 234 5678 (Placeholder)</p>
+                                    </div>
+                                </div>
+                                <div class="contact-item">
+                                    <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                                    <div>
+                                        <p class="mb-0">oladapo.emmanuel@example.com</p>
+                                    </div>
+                                </div>
+                                
+                                <h4 class="mt-5 mb-3">Connect With Me</h4>
+                                <div class="social-links">
+                                    <a href="https://github.com/eminent" target="_blank" class="social-link">
+                                        <i class="fab fa-github"></i>
+                                    </a>
+                                    <a href="https://linkedin.com/in/oladapoemmanuel" target="_blank" class="social-link">
+                                        <i class="fab fa-linkedin"></i>
+                                    </a>
+                                    <a href="https://twitter.com/eminentdev" target="_blank" class="social-link">
+                                        <i class="fab fa-twitter"></i>
+                                    </a>
+                                    <a href="https://instagram.com/eminentdev" target="_blank" class="social-link">
+                                        <i class="fab fa-instagram"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6" data-aos="fade-left">
+                            <div class="contact-info h-100">
+                                <h4 class="mb-4">Send Me a Message</h4>
+                                <form action="mailto:oladapo.emmanuel@example.com" method="post" enctype="text/plain">
+                                    <div class="mb-3">
+                                        <label for="name" class="form-label">Your Name</label>
+                                        <input type="text" class="form-control" id="name" name="name" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="email" class="form-label">Your Email</label>
+                                        <input type="email" class="form-control" id="email" name="email" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="subject" class="form-label">Subject</label>
+                                        <input type="text" class="form-control" id="subject" name="subject" required>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="message" class="form-label">Your Message</label>
+                                        <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary w-100">Send Message</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="text-center py-4">
+        <div class="container">
+            <p class="mb-0">&copy; <span id="current-year"></span> Eminent. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <button class="scroll-to-top" id="scrollToTopBtn">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <!-- AOS Animation JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize AOS
+            AOS.init({
+                duration: 1000,
+                once: true, // Whether animation should happen only once - while scrolling down
+            });
+
+            const body = document.body;
+            const themeToggleBtn = document.getElementById('theme-toggle');
+            const themeIcon = document.getElementById('theme-icon');
+            const navbar = document.querySelector('.navbar');
+            const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+            const navLinks = document.querySelectorAll('.navbar-nav .nav-link');
+            const sections = document.querySelectorAll('section');
+
+            // --- Theme Toggle Function ---
+            window.toggleTheme = function() {
+                if (body.getAttribute('data-theme') === 'light') {
+                    body.removeAttribute('data-theme');
+                    localStorage.setItem('theme', 'dark');
+                    themeIcon.classList.remove('fa-moon');
+                    themeIcon.classList.add('fa-sun');
+                } else {
+                    body.setAttribute('data-theme', 'light');
+                    localStorage.setItem('theme', 'light');
+                    themeIcon.classList.remove('fa-sun');
+                    themeIcon.classList.add('fa-moon');
+                }
+            };
+
+            // Apply saved theme on load
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'light') {
+                body.setAttribute('data-theme', 'light');
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+            } else {
+                body.removeAttribute('data-theme'); // Default to dark if no preference or 'dark'
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+            }
+
+            // --- Sticky Navbar ---
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('shadow-lg'); // Add shadow for sticky effect
+                } else {
+                    navbar.classList.remove('shadow-lg');
+                }
+            });
+
+            // --- Scroll to Top Button ---
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 300) { // Show button after scrolling 300px
+                    scrollToTopBtn.classList.add('visible');
+                } else {
+                    scrollToTopBtn.classList.remove('visible');
+                }
+            });
+
+            scrollToTopBtn.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+
+            // --- Active Navbar Links on Scroll ---
+            const observerOptions = {
+                root: null,
+                rootMargin: '-50% 0px -50% 0px', // When section is in the middle of the viewport
+                threshold: 0 // No threshold needed, just check intersection
+            };
+
+            const sectionObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        navLinks.forEach(link => link.classList.remove('active'));
+                        const currentNavLink = document.querySelector(`.nav-link[href="#${entry.target.id}"]`);
+                        if (currentNavLink) {
+                            currentNavLink.classList.add('active');
+                        }
+                    }
+                });
+            }, observerOptions);
+
+            sections.forEach(section => {
+                sectionObserver.observe(section);
+            });
+
+            // --- Skill Progress Bar Animation ---
+            const skillBars = document.querySelectorAll('.progress-bar');
+            const skillSection = document.getElementById('skills');
+
+            const skillObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        skillBars.forEach(bar => {
+                            const width = bar.dataset.width;
+                            bar.style.width = width + '%';
+                        });
+                        skillObserver.unobserve(skillSection); // Stop observing once animated
+                    }
+                });
+            }, { threshold: 0.5 }); // Trigger when 50% of the skills section is visible
+
+            if (skillSection) {
+                skillObserver.observe(skillSection);
+            }
+
+            // --- Counter Animation ---
+            const counterNumbers = document.querySelectorAll('.counter-number');
+            const counterSection = document.querySelector('.counter-section');
+
+            const counterObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        counterNumbers.forEach(counter => {
+                            const target = parseInt(counter.dataset.target);
+                            let current = 0;
+                            const duration = 2000; // 2 seconds
+                            const increment = target / (duration / 16); // ~60fps
+
+                            const updateCounter = () => {
+                                if (current < target) {
+                                    current += increment;
+                                    counter.textContent = Math.ceil(current);
+                                    requestAnimationFrame(updateCounter);
+                                } else {
+                                    counter.textContent = target;
+                                }
+                            };
+                            updateCounter();
+                        });
+                        counterObserver.unobserve(counterSection); // Stop observing once animated
+                    }
+                });
+            }, { threshold: 0.7 }); // Trigger when 70% of the counter section is visible
+
+            if (counterSection) {
+                counterObserver.observe(counterSection);
+            }
+
+            // Set current year in footer
+            document.getElementById('current-year').textContent = new Date().getFullYear();
+        });
+    </script>
+</body>
+</html>
